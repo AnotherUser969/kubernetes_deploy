@@ -193,9 +193,10 @@
 
         - name: Create keepalived service enable
           systemd:
-                name: keepalived
+                name: keepalived.service
                 state: started
                 enabled: true
+          when: "'masters' in group_names"
 
         - name: Copy j2 template with haproxy conf
           template:
@@ -204,9 +205,11 @@
                 owner: user
                 group: user
                 mode: 0700
+          when: "'masters' in group_names"
 
         - name: Create haproxy service enable
           systemd:
-                name: haproxy
+                name: haproxy.service
                 service: started
                 enabled: true
+          when: "'masters' in group_names"
