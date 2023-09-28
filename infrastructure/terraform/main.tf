@@ -178,21 +178,21 @@ resource "yandex_vpc_route_table" "rt" {
 
 locals {
    masters_ips = {
-	 internal = ["${yandex_compute_instance_group.master.*.network_interface.0.ip_address}"]
-	 external = ["${yandex_compute_instance_group.master.*.network_interface.0.nat_ip_address}"]
+	 internal = ["${yandex_compute_instance_group.master.*.instance_template.network_interface.0.ip_address}"]
+	 external = ["${yandex_compute_instance_group.master.*.instance_template.network_interface.0.nat_ip_address}"]
    }
    workers_ips = {
-	 internal = ["${yandex_compute_instance_group.worker.*.network_interface.0.ip_address}"]
-	 external = ["${yandex_compute_instance_group.worker.*.network_interface.0.nat_ip_address}"]
+	 internal = ["${yandex_compute_instance_group.worker.*.instance_template.network_interface.0.ip_address}"]
+	 external = ["${yandex_compute_instance_group.worker.*.instance_template.network_interface.0.nat_ip_address}"]
    }
    prod_subnet_ids = yandex_vpc_subnet.subnet.*.id
 }
 
 output "masters_ips" {
-  value = "${local.app_servers_ips}"
+  value = "${local.masters_ips}"
 }
 output "workers_ips" {
-  value = "${local.load_balancer_ips}"
+  value = "${local.masters_ips}"
 }
 output "prod_subnet_ids" {
   value = "${local.prod_subnet_ids}"
