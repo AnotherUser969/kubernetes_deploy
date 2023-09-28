@@ -168,7 +168,7 @@ resource "yandex_vpc_gateway" "nat_gateway" {
 resource "yandex_vpc_route_table" "rt" {
   name       = "route-table"
   //network_id = "${var.network_id}"
-  network_id = "enpc1qpbs8rj8bt5j7sl"
+  network_id = "enp31dqjpjv7hn17a8f2"
 
   static_route {
     destination_prefix = "0.0.0.0/0"
