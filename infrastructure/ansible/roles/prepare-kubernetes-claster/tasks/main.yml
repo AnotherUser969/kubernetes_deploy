@@ -3,7 +3,7 @@
 
         - name: Install utils for all
           apt:
-             name: "{{ items }}"
+             name: "{{ item }}"
              state: present
              update_cache: yes
           with_items:
