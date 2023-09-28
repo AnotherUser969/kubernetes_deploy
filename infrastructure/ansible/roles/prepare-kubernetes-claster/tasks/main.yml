@@ -143,7 +143,7 @@
           get_url:
                url: "https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/cri-docker.service"
                dest: /tmp/
-               user: user
+               owner: user
                group: user
                mode: 0600
                validate_certs: false
@@ -152,7 +152,7 @@
           get_url:
                 url: https://raw.githubusercontent.com/Mirantis/cri-dockerd/master/packaging/systemd/cri-docker.socket
                 dest: /tmp/
-                user: user
+                owner: user
                 group: user
                 mode: 0600
                 validate_certs: false
