@@ -155,7 +155,7 @@ resource "yandex_vpc_subnet" "subnet" {
   name           = "yc-auto-subnet"
   zone           = "ru-central1-b"
   //network_id     = "${yandex_vpc_network.network.id}"
-  network_id = "enpc1qpbs8rj8bt5j7sl"
+  network_id = "enp31dqjpjv7hn17a8f2"
   v4_cidr_blocks = ["192.168.10.0/24"]
   route_table_id = yandex_vpc_route_table.rt.id
 }
