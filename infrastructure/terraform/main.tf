@@ -36,7 +36,7 @@ resource "yandex_compute_instance_group" "master" {
     }
     network_interface {
       //network_id = "${yandex_vpc_network.network.id}"
-	  network_id = "enpc1qpbs8rj8bt5j7sl"
+	  network_id = "enp31dqjpjv7hn17a8f2"
       subnet_ids = ["${yandex_vpc_subnet.subnet.id}"]
 	  dns_record {
 	     fqdn = "test-ig."
@@ -103,7 +103,7 @@ resource "yandex_compute_instance_group" "worker" {
     }
     network_interface {
       //network_id = "${yandex_vpc_network.network.id}"
-	  network_id = "enpc1qpbs8rj8bt5j7sl"
+	  network_id = "enp31dqjpjv7hn17a8f2"
       subnet_ids = ["${yandex_vpc_subnet.subnet.id}"]
 	  dns_record {
 	     fqdn = "test-ig."
