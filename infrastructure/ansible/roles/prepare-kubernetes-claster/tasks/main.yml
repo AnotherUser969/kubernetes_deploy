@@ -179,16 +179,22 @@
                 enabled: true
                 daemon_reload: true
 
-        - name: Copy keepalived.conf and check_apiserver.sh to masters
+        - name: Copy keepalived.conf to masters
           copy:
-                src: "{{ item }}"
+                src: 'keepalived.conf'
+                dest: '/etc/keepalived/'
+                owner: user
+                group: user
+                mode: 0600
+          when: "'masters' in group_names"
+
+        - name: Copy check_apiserver.sh to masters
+          copy:
+                src: 'check_apiserver.sh'
                 dest: '/etc/keepalived/'
                 owner: user
                 group: user
                 mode: 0700
-          loop:
-                - 'keepalived.conf'
-                - 'check_apiserver.sh'
           when: "'masters' in group_names"
 
         - name: Create keepalived service enable
@@ -204,7 +210,7 @@
                 dest: '/etc/haproxy/haproxy.cfg'
                 owner: user
                 group: user
-                mode: 0700
+                mode: 0600
           when: "'masters' in group_names"
 
         - name: Create haproxy service enable
