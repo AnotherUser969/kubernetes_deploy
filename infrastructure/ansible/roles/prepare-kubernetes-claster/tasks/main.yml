@@ -193,7 +193,7 @@
 
         - name: Create keepalived service enable
           systemd:
-                name: keepalived.service
+                name: keepalived
                 state: started
                 enabled: true
 
@@ -207,6 +207,6 @@
 
         - name: Create haproxy service enable
           systemd:
-                name: haproxy.service
+                name: haproxy
                 service: started
                 enabled: true
