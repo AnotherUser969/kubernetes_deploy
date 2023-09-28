@@ -178,8 +178,8 @@ resource "yandex_vpc_route_table" "rt" {
 
 locals {
    masters_ips = {
-	 internal = ["${yandex_compute_instance_group.master.*.instance_template.network_interface.0.ip_address}"]
-	 external = ["${yandex_compute_instance_group.master.*.instance_template.network_interface.0.nat_ip_address}"]
+	 internal = ["${yandex_compute_instance_group.master.instance_template.*.network_interface.0.ip_address}"]
+	 external = ["${yandex_compute_instance_group.master.instance_template.*.instance_template.network_interface.0.nat_ip_address}"]
    }
    workers_ips = {
 	 internal = ["${yandex_compute_instance_group.worker.*.instance_template.network_interface.0.ip_address}"]
