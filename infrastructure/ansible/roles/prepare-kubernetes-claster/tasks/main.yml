@@ -195,7 +195,7 @@
           systemd:
                 name: keepalived.service
                 state: started
-                enable: true
+                enabled: true
 
         - name: Copy j2 template with haproxy conf
           template:
@@ -209,4 +209,4 @@
           systemd:
                 name: haproxy.service
                 service: started
-                enable: true
+                enabled: true
