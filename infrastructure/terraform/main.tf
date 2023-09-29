@@ -36,7 +36,7 @@ resource "yandex_compute_instance_group" "master" {
     }
     network_interface {
       //network_id = "${yandex_vpc_network.network.id}"
-	  network_id = "enp31dqjpjv7hn17a8f2"
+	  network_id = "e2l0kmh5m69ds8ko36mr"
       subnet_ids = ["${yandex_vpc_subnet.subnet.id}"]
 	  dns_record {
 	     fqdn = "test-ig."
@@ -103,7 +103,7 @@ resource "yandex_compute_instance_group" "worker" {
     }
     network_interface {
       //network_id = "${yandex_vpc_network.network.id}"
-	  network_id = "enp31dqjpjv7hn17a8f2"
+	  network_id = "e2l0kmh5m69ds8ko36mr"
       subnet_ids = ["${yandex_vpc_subnet.subnet.id}"]
 	  dns_record {
 	     fqdn = "test-ig."
@@ -155,7 +155,7 @@ resource "yandex_vpc_subnet" "subnet" {
   name           = "yc-auto-subnet"
   zone           = "ru-central1-b"
   //network_id     = "${yandex_vpc_network.network.id}"
-  network_id = "enp31dqjpjv7hn17a8f2"
+  network_id = "e2l0kmh5m69ds8ko36mr"
   v4_cidr_blocks = ["192.168.10.0/24"]
   route_table_id = yandex_vpc_route_table.rt.id
 }
@@ -168,7 +168,7 @@ resource "yandex_vpc_gateway" "nat_gateway" {
 resource "yandex_vpc_route_table" "rt" {
   name       = "route-table"
   //network_id = "${var.network_id}"
-  network_id = "enp31dqjpjv7hn17a8f2"
+  network_id = "e2l0kmh5m69ds8ko36mr"
 
   static_route {
     destination_prefix = "0.0.0.0/0"
@@ -179,11 +179,11 @@ resource "yandex_vpc_route_table" "rt" {
 locals {
    masters_ips = {
 	 internal = ["${yandex_compute_instance_group.master.instances.*.network_interface.0.ip_address}"]
-	 external = ["${yandex_compute_instance_group.master.instance_template.*.network_interface.0.nat_ip_address}"]
+	 //external = ["${yandex_compute_instance_group.master.instance_template.*.network_interface.0.nat_ip_address}"]
    }
    workers_ips = {
 	 internal = ["${yandex_compute_instance_group.worker.instances.*.network_interface.0.ip_address}"]
-	 external = ["${yandex_compute_instance_group.worker.instance_template.*.network_interface.0.nat_ip_address}"]
+	 //external = ["${yandex_compute_instance_group.worker.instance_template.*.network_interface.0.nat_ip_address}"]
    }
    prod_subnet_ids = yandex_vpc_subnet.subnet.*.id
 }
