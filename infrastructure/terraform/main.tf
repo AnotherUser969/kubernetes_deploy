@@ -23,7 +23,7 @@ resource "yandex_compute_instance_group" "master" {
     platform_id = "standard-v3"
     resources {
       memory = 2
-      cores  = 2
+      cores  = 4
 	  core_fraction = 20
     }
     boot_disk {
@@ -63,7 +63,7 @@ resource "yandex_compute_instance_group" "master" {
 
   scale_policy {
     fixed_scale {
-      size = 3
+      size = 2
     }
   }
 
@@ -130,7 +130,7 @@ resource "yandex_compute_instance_group" "worker" {
 
   scale_policy {
     fixed_scale {
-      size = 2
+      size = 1
     }
   }
 
@@ -139,10 +139,10 @@ resource "yandex_compute_instance_group" "worker" {
   }
 
   deploy_policy {
-    max_unavailable = 2
-    max_creating    = 2
-    max_expansion   = 2
-    max_deleting    = 2
+    max_unavailable = 1
+    max_creating    = 1
+    max_expansion   = 1
+    max_deleting    = 1
   }
 }
 
