@@ -200,7 +200,7 @@
         - name: Create keepalived service enable
           systemd:
                 name: keepalived.service
-                state: started
+                state: restarted
                 enabled: true
           when: "'masters' in group_names"
 
@@ -216,6 +216,6 @@
         - name: Create haproxy service enable
           systemd:
                 name: haproxy.service
-                state: started
+                state: restarted
                 enabled: true
           when: "'masters' in group_names"
