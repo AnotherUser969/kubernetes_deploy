@@ -28,9 +28,9 @@ KUBEADM_TOKEN=$(ssh $MASTER_FIRST_NODE "sudo kubeadm token create --print-join-c
 KUBEADM_CERTS=$(ssh $MASTER_FIRST_NODE "sudo kubeadm init phase upload-certs --upload-certs | grep -vw -e certificate -e Namespace")
 
 for host in $MASTERS_OTHER_NODES; do
-    ssh $host "sudo $KUBEADM_TOKEN --control-plane --certificate-key $KUBEADM_CERTS"
+    ssh $host "sudo $KUBEADM_TOKEN --control-plane --certificate-key $KUBEADM_CERTS --cri-socket unix:///var/run/cri-dockerd.sock"
 done
 
 for host in $WORKERS_NODES; do
-    ssh $host "sudo $KUBEADM_TOKEN"
+    ssh $host "sudo $KUBEADM_TOKEN --cri-socket unix:///var/run/cri-dockerd.sock"
 done
