@@ -36,7 +36,7 @@ resource "yandex_compute_instance_group" "master" {
     }
     network_interface {
       //network_id = "${yandex_vpc_network.network.id}"
-	  network_id = "enp05rqh4sgeie6v6eff"
+	  network_id = "enp7m02qd9vbo1m3r75q"
       subnet_ids = ["${yandex_vpc_subnet.subnet.id}"]
 	  dns_record {
 	     fqdn = "test-ig."
@@ -103,7 +103,7 @@ resource "yandex_compute_instance_group" "worker" {
     }
     network_interface {
       //network_id = "${yandex_vpc_network.network.id}"
-	  network_id = "enp05rqh4sgeie6v6eff"
+	  network_id = "enp7m02qd9vbo1m3r75q"
       subnet_ids = ["${yandex_vpc_subnet.subnet.id}"]
 	  dns_record {
 	     fqdn = "test-ig."
@@ -155,7 +155,7 @@ resource "yandex_vpc_subnet" "subnet" {
   name           = "yc-auto-subnet"
   zone           = "ru-central1-b"
   //network_id     = "${yandex_vpc_network.network.id}"
-  network_id = "enp05rqh4sgeie6v6eff"
+  network_id = "enp7m02qd9vbo1m3r75q"
   v4_cidr_blocks = ["192.168.10.0/24"]
   route_table_id = yandex_vpc_route_table.rt.id
 }
@@ -168,7 +168,7 @@ resource "yandex_vpc_gateway" "nat_gateway" {
 resource "yandex_vpc_route_table" "rt" {
   name       = "route-table"
   //network_id = "${var.network_id}"
-  network_id = "enp05rqh4sgeie6v6eff"
+  network_id = "enp7m02qd9vbo1m3r75q"
 
   static_route {
     destination_prefix = "0.0.0.0/0"
