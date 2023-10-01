@@ -130,7 +130,7 @@ resource "yandex_compute_instance_group" "worker" {
 
   scale_policy {
     fixed_scale {
-      size = 1
+      size = 0
     }
   }
 
