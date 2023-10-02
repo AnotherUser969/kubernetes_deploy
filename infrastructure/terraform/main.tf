@@ -13,7 +13,7 @@ provider "yandex" {
 }
 
 resource "yandex_compute_instance_group" "master" {
-  name                = "test-ig-master"
+  name                = "ig-master"
   folder_id           = "${var.folder_id}"
   service_account_id  = "${var.service_account_id}"
   deletion_protection = false
@@ -68,7 +68,7 @@ resource "yandex_compute_instance_group" "master" {
 }
 
 resource "yandex_compute_instance_group" "worker" {
-  name                = "test-ig-worker"
+  name                = "ig-worker"
   folder_id           = "${var.folder_id}"
   service_account_id  = "${var.service_account_id}"
   deletion_protection = false
