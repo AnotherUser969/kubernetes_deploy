@@ -22,7 +22,7 @@ resource "yandex_compute_instance_group" "master" {
     hostname = "master-{instance.index}"
     platform_id = "standard-v3"
     resources {
-      memory = 1
+      memory = 2
       cores  = 2
       core_fraction = 20
     }
@@ -77,7 +77,7 @@ resource "yandex_compute_instance_group" "worker" {
     hostname = "worker-{instance.index}"
     platform_id = "standard-v3"
     resources {
-      memory = 1
+      memory = 2
       cores  = 2
       core_fraction = 20
     }
