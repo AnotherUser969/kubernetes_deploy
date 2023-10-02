@@ -42,10 +42,7 @@ resource "yandex_compute_instance_group" "master" {
 	     fqdn = "test-ig."
 	  }
     }
-    //labels = {
-    //  label1 = "label1-value"
-    //  label2 = "label2-value"
-    //}
+
     metadata = {
       foo      = "bar"
       //ssh-keys = "${file("~/.ssh/id_rsa.pub")}"
@@ -55,11 +52,6 @@ resource "yandex_compute_instance_group" "master" {
       type = "STANDARD"
     }
   }
-
-  //variables = {
-  //  test_key1 = "test_value1"
-  //  test_key2 = "test_value2"
-  //}
 
   scale_policy {
     fixed_scale {
@@ -103,16 +95,13 @@ resource "yandex_compute_instance_group" "worker" {
     }
     network_interface {
       //network_id = "${yandex_vpc_network.network.id}"
-	  network_id = "enp7m02qd9vbo1m3r75q"
+      network_id = "enp7m02qd9vbo1m3r75q"
       subnet_ids = ["${yandex_vpc_subnet.subnet.id}"]
 	  dns_record {
 	     fqdn = "test-ig."
 	  }
     }
-    //labels = {
-    //  label1 = "label1-value"
-    //  label2 = "label2-value"
-    //}
+
     metadata = {
       foo      = "bar"
       //ssh-keys = "${file("~/.ssh/id_rsa.pub")}"
@@ -122,11 +111,6 @@ resource "yandex_compute_instance_group" "worker" {
       type = "STANDARD"
     }
   }
-
-  //variables = {
-  //  test_key1 = "test_value1"
-  //  test_key2 = "test_value2"
-  //}
 
   scale_policy {
     fixed_scale {
@@ -179,11 +163,9 @@ resource "yandex_vpc_route_table" "rt" {
 locals {
    masters_ips = {
 	 internal = ["${yandex_compute_instance_group.master.instances.*.network_interface.0.ip_address}"]
-	 //external = ["${yandex_compute_instance_group.master.instance_template.*.network_interface.0.nat_ip_address}"]
    }
    workers_ips = {
 	 internal = ["${yandex_compute_instance_group.worker.instances.*.network_interface.0.ip_address}"]
-	 //external = ["${yandex_compute_instance_group.worker.instance_template.*.network_interface.0.nat_ip_address}"]
    }
    prod_subnet_ids = yandex_vpc_subnet.subnet.*.id
 }
