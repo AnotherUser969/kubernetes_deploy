@@ -34,9 +34,11 @@ pipeline {
               }
         }
         stage('Apply') {
-               withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
-                    sh label: '', script: 'terraform -chdir="./infrastructure/terraform" apply -var="service_account_key_file=$SERVICE_ACCOUNT_KEY_FILE" -var="network_id=$NETWORK_ID" -auto-approve -no-color'
-               }
+	       steps {
+                   withCredentials([file(credentialsId: 'KEY_FILE', variable: 'SERVICE_ACCOUNT_KEY_FILE')]) {
+                       sh label: '', script: 'terraform -chdir="./infrastructure/terraform" apply -var="service_account_key_file=$SERVICE_ACCOUNT_KEY_FILE" -var="network_id=$NETWORK_ID" -auto-approve -no-color'
+                   }   
+	       }
         }
         stage('Generate host file') {
                steps {
