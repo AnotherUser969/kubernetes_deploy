@@ -42,6 +42,7 @@ pipeline {
         }
         stage('Generate host file') {
                steps {
+		    sh label: '', script: 'sleep 8'
                     sh label: '', script: 'bash ./infrastructure/scripts/generate_host_file.sh'
                }
         }
