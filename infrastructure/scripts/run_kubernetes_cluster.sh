@@ -23,14 +23,18 @@ case "$1" in
 esac; shift; done
 
 ssh $MASTER_FIRST_NODE "sudo kubeadm init --cri-socket unix:///var/run/cri-dockerd.sock --pod-network-cidr=$POD_NETWORK --control-plane-endpoint $CONTROL_PLANE_ENDPOINT --upload-certs" &&
+ssh $MASTER_FIRST_NODE "mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config" &&
 
 KUBEADM_TOKEN=$(ssh $MASTER_FIRST_NODE "sudo kubeadm token create --print-join-command")
 KUBEADM_CERTS=$(ssh $MASTER_FIRST_NODE "sudo kubeadm init phase upload-certs --upload-certs | grep -vw -e certificate -e Namespace")
 
 for host in $MASTERS_OTHER_NODES; do
     ssh $host "sudo $KUBEADM_TOKEN --control-plane --certificate-key $KUBEADM_CERTS --cri-socket unix:///var/run/cri-dockerd.sock"
+    ssh $host "mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config"
 done
 
 for host in $WORKERS_NODES; do
     ssh $host "sudo $KUBEADM_TOKEN --cri-socket unix:///var/run/cri-dockerd.sock"
 done
+
+ssh $MASTER_FIRST_NODE "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
