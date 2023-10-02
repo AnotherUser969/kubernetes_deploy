@@ -54,9 +54,9 @@ pipeline {
                steps {
                     sh label: '', script: '''
                     bash ./infrastructure/scripts/run_kubernetes_cluster.sh \
-                    -mfn "terraform output -json | jq -r '.masters_ips.value.internal[][]' | head -n 1" \
-                    -mons "terraform output -json | jq -r '.masters_ips.value.internal[][]' | tail -n +2" \
-                    -wnd "terraform output -json | jq -r '.workers_ips.value.internal[][]'"
+                    -mfn "terraform -chdir="./infrastructure/terraform" output -json | jq -r '.masters_ips.value.internal[][]' | head -n 1" \
+                    -mons "terraform -chdir="./infrastructure/terraform" output -json | jq -r '.masters_ips.value.internal[][]' | tail -n +2" \
+                    -wnd "terraform -chdir="./infrastructure/terraform" output -json | jq -r '.workers_ips.value.internal[][]'"
                     '''
                }
         }
