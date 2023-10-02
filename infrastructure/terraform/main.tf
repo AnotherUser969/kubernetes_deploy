@@ -8,13 +8,13 @@ terraform {
 
 provider "yandex" {
   zone                     = "ru-central1-b"
-  service_account_key_file = "/home/user/key.json"
-  folder_id                = "b1g3a65ovr0uv7n30pq7"
+  service_account_key_file = "${var.service_account_key_file}"
+  folder_id                = "${var.folder_id}"
 }
 
 resource "yandex_compute_instance_group" "master" {
   name                = "test-ig-master"
-  folder_id           = "b1g3a65ovr0uv7n30pq7"
+  folder_id           = "${var.folder_id}"
   service_account_id  = "aje2qo68d01hqiolpukk"
   deletion_protection = false
   instance_template {
