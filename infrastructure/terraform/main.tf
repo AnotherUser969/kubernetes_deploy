@@ -45,7 +45,7 @@ resource "yandex_compute_instance_group" "master" {
     metadata = {
       foo      = "bar"
       //ssh-keys = "${file("~/.ssh/id_rsa.pub")}"
-      user-data = "${file("~/metadata")}"
+      user-data = "${file("${var.user_data_path}")}"
     }
     network_settings {
       type = "STANDARD"
